@@ -1,6 +1,8 @@
-﻿namespace Ecommerce.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace Ecommerce.Models
 {
-    public class User
+    public class User : IdentityUser
     {
         public int Id { get; set; }
         public string FirstName { get; set; } = string.Empty;  

@@ -1,7 +1,17 @@
+using Ecommerce.Data;
+using Ecommerce.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<AppDbContext>(
+    options => options.UseInMemoryDatabase("UserDb")
+);
+
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddCors(options =>
 {
@@ -16,8 +26,6 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAuthorization();
-builder.Services.AddAuthentication("Bearer").AddJwtBearer();
 
 var app = builder.Build();
 
@@ -34,6 +42,5 @@ if (app.Environment.IsDevelopment())
 app.UseCors("MyCors");
 
 app.MapControllers();
-
 
 app.Run();
