@@ -5,7 +5,7 @@ namespace Ecommerce.Repositories
 {
     public interface IUserRepository
     {
-        Task<IdentityResult> RegisterUser(User user, string password);
+        Task<IdentityResult> RegisterUser(RegisterUserDto userDto, string password);
         Task<SignInResult> LoginUser(string email, string password);
     }
 }

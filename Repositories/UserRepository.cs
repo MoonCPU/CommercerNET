@@ -14,8 +14,27 @@ namespace Ecommerce.Repositories
             _signInManager = signInManager;
         }
 
-        public async Task<IdentityResult> RegisterUser(User user, string password)
+        // The password is passed separately to ensure security. 
+        // ASP.NET Core Identity handles hashing the password through the UserManager.
+        // Passwords are not stored directly in the User entity. Instead, the UserManager hashes the password 
+        // and stores the hash in the PasswordHash property of IdentityUser. 
+        // By using CreateAsync(user, password), we let Identity handle secure password hashing and storage.
+        //the Identity framework automatically associates the 'password' parameter with the password-handling process.
+        public async Task<IdentityResult> RegisterUser(RegisterUserDto userDto, string password)
         {
+            // Map RegisterUserDto to User
+            var user = new User
+            {
+                UserName = userDto.Email,
+                Email = userDto.Email,
+                FirstName = userDto.FirstName,
+                LastName = userDto.LastName,
+                Address = userDto.Address,
+                PhoneNumber = userDto.PhoneNumber,
+                DateJoined = DateTime.UtcNow
+            };
+
+            // Create the user
             return await _userManager.CreateAsync(user, password);
         }
 
