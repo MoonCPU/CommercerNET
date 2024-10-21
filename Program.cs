@@ -20,6 +20,7 @@ builder.Services.AddIdentity<User, IdentityRole>()
 // For every HTTP request, when IUserRepository is injected,
 // a new instance of UserRepository is created and used for that request's lifetime.
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 builder.Services.AddAuthentication();
 
