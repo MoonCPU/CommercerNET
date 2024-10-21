@@ -10,7 +10,8 @@ namespace Ecommerce.Data
     // in the AspNetUsers table alongside the default Identity properties (e.g., UserName, Email).
     public class AppDbContext : IdentityDbContext<User>
     {
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Order> Orders { get; set; } 
+        public DbSet<OrderItem> OrderItems { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) 
             : base(options)
